@@ -137,5 +137,8 @@
       }
     }
   },
-  "defaultProject": "genericapp"
+  "defaultProject": "genericapp",
+  "cli": {
+    "analytics": false
+  }
 }

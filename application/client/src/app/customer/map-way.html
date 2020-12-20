@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<style type="text/css">
+	body, html,#allmap {width: 100%;height: 100%;overflow:auto; font-family:"Times New Roman";}
+	</style>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?type=webgl&v=1.0&ak=dLjXH3b7YGlv5Gr4eCYcZvbLykFMUqvt"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/library/TrackAnimation/src/TrackAnimation_min.js"></script>
+    <title>Customer</title>
+</head>
+<body>
+	<div id="allmap"></div>
+</body>
+</html>
+<script type="text/javascript">
+    // GL版命名空间为BMapGL
+    // 按住鼠标右键，修改倾斜角和角度
+	var bmap = new BMapGL.Map("allmap");    // 创建Map实例
+	bmap.centerAndZoom(new BMapGL.Point(116.297611, 40.047363), 4);  // 初始化地图,设置中心点坐标和地图级别
+    bmap.enableScrollWheelZoom(true);     // 开启鼠标滚轮缩放
+   
+    var path = [{
+    	'lng': -123.92074,
+        'lat': 46.010328,
+        'conv':1
+    }, {
+    	'lng': 103.388301,
+        'lat': 1.090566,
+        'conv':0
+    }, {
+    	'lng': 121.388301,
+        'lat': 31.290566,
+        'conv':0
+    }];
+ 
+   var con_color = "blue";
+    var point = [];
+    for (var i = 0; i < path.length; i++) {
+        point.push(new BMapGL.Point(path[i].lng, path[i].lat));
+        if(path[i].conv==1)
+        {
+            con_color="red";
+        }
+    }
+    var pl = new BMapGL.Polyline(point,{strokeColor:con_color, strokeWeight:4, strokeOpacity:0.8});
+    setTimeout('start()', 3000);
+    function start () {
+        trackAni = new BMapGLLib.TrackAnimation(bmap, pl, {
+            overallView: true,
+            tilt: 30,
+            duration: 5000,
+            delay: 30
+        });
+        trackAni.start();
+    }
+</script>
