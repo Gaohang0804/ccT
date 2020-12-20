@@ -2,3 +2,179 @@
   <h3>Regulator Portal - {{currentUser.userid}}</h3>
   <orders-table regulator></orders-table>
 </section>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ 
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>飞线</title>
+    <style type="text/css">
+      body {
+        margin-top: 1000px;
+        border: 0;
+        overflow:scroll;
+      }
+      #map_canvas {
+        width: 100px;
+        height: 200px;
+        position:absolute;
+      }
+    </style>
+       
+  </head>
+ 
+  <body>
+    <div id="container" style="height: 500px"></div>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat/dist/ecStat.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/dataTool.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/world.js"></script>
+    <!--百度地图 引入 -->
+    <script type="text/javascript" src="https://api.map.baidu.com/api?v=3.0&ak=dLjXH3b7YGlv5Gr4eCYcZvbLykFMUqvt"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
+    <script>
+      var dom = document.getElementById("container");
+      var myChart = echarts.init(dom);
+ 
+      var option=null;
+ 
+      var startPoint = {
+        x: 121.4648,
+        y: 31.2891,
+      };
+      // 地图
+      var bmap = {
+        center: [startPoint.x, startPoint.y],
+        zoom: 5,
+        roam: true,
+        mapStyleV2: {
+            //设置地图自定义样式
+            styleId: "1c9508432f1bd060b4485d79045d5bdd",
+          },
+      }
+ 
+     //飞线图标
+      var planePath = 'path://M1705.06,1318.313v-89.254l-319.9-221.799l0.073-208.063c0.521-84.662-26.629-121.796-63.961-121.491c-37.332-0.305-64.482,36.829-63.961,121.491l0.073,208.063l-319.9,221.799v89.254l330.343-157.288l12.238,241.308l-134.449,92.931l0.531,42.034l175.125-42.917l175.125,42.917l0.531-42.034l-134.449-92.931l12.238-241.308L1705.06,1318.313z';
+ 
+      var series = [
+                //飞线数据
+                {
+                  name: '冷冻食品运输',
+                  type: 'lines',
+                  coordinateSystem: 'bmap',
+                  zlevel: 2,
+                  effect: {
+                    show: true,
+                    period: 6,
+                    trailLength: 0,
+                    symbol: planePath,
+                    symbolSize: 15
+                  },
+                  lineStyle: {
+                    normal: {
+                      color: '#a6c84c',
+                      width: 1,
+                      opacity: 0.4,
+                      curveness: 0.2
+                    }
+                  },
+                  data: [{
+                    fromName: "北京",
+                    toName: "上海",
+                    coords:[[116.4551, 40.2539],[121.4648, 31.2891]]
+                  },{
+                    fromName: "首尔",
+                    toName: "北京",
+                    coords:[[126.94822,37.599572],[116.4551, 40.2539]]
+                  },{
+                    fromName: "北海道",
+                    toName: "天津",
+                    coords:[[142.849233,43.257289],[117.2126,39.010267]]
+                  },{
+                    fromName: "哥本哈根",
+                    toName: "北京",
+                    coords:[[12.428496,55.678258],[116.4551, 40.2539]]
+                  },{
+                    fromName: "汉堡",
+                    toName: "上海",
+                    coords:[[9.981656,53.559556],[121.4648, 31.2891]]
+                  },{
+                    fromName: "巴黎",
+                    toName: "天津",
+                    coords:[[2.319182,48.888996],[117.2126,39.010267]]
+                  },{
+                    fromName: "伊斯坦布尔",
+                    toName: "郑州",
+                    coords:[[28.967666,41.017074],[113.632026,34.753978]]
+                  },{
+                    fromName: "新德里",
+                    toName: "广州",
+                    coords:[[77.090395,28.721155],[113.26638,23.139826]]
+                  },{
+                    fromName: "乌鲁木齐",
+                    toName: "上海",
+                    coords:[[87.594542,43.835341],[121.4648, 31.2891]]
+                  },{
+                    fromName: "曼谷",
+                    toName: "海口",
+                    coords:[[100.433115,13.724022],[110.34006,20.035427]]
+                  },{
+                    fromName: "莫斯科",
+                    toName: "呼和浩特",
+                    coords:[[37.61731,55.758905],[111.73194,40.849295]]
+                  },{
+                    fromName: "乌兰巴托",
+                    toName: "银川",
+                    coords:[[106.872169,47.956838],[106.209867,38.53137]]
+                  },{
+                    fromName: "波特兰",
+                    toName: "福州",
+                    coords:[[-122.681797,45.529112],[119.308742,26.125461]]
+                  },{
+                    fromName: "休斯顿",
+                    toName: "北京",
+                    coords:[[-95.37561,29.79201],[116.4551, 40.2539]]
+                  },{
+                    fromName: "危地马拉",
+                    toName: "石家庄",
+                    coords:[[114.51463,38.047857],[116.4551, 40.2539]]
+                  },{
+                    fromName: "吉隆坡",
+                    toName: "上海",
+                    coords:[[101.671592,3.181853],[121.4648, 31.2891]]
+                  },{
+                    fromName: "雅加达",
+                    toName: "郑州",
+                    coords:[[106.822835,-6.158384],[113.632026,34.753978]]
+                  },{
+                    fromName: "堪培拉",
+                    toName: "南京",
+                    coords:[[149.173413,-35.340843],[118.798398,32.080318]]
+                  },{
+                    fromName: "墨尔本",
+                    toName: "重庆",
+                    coords:[[144.938337,-37.849197],[106.551538,29.557938]]
+                  },{
+                    fromName: "温哥华",
+                    toName: "北京",
+                    coords:[[-123.14431,49.287243],[116.4551, 40.2539]]
+                  },
+                ]
+                }
+              ];
+      option = {
+        bmap: bmap,
+        tooltip: {
+          trigger: 'item'
+        },
+        series: series
+      };
+      myChart.setOption(option);
+ 
+ 
+    </script>
+  </body>
+ 
+</html>
